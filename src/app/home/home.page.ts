@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IonInput } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
+
+  alertButtons = ['Action'];
 
   constructor() {}
 

@@ -1,2 +1,6 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+@import "bootstrap"; // If you configured sass.config.js
+// OR
+@import "~bootstrap/dist/css/bootstrap.min.css"; // Direct CSS import

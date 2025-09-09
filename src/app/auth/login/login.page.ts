@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AutoLogin } from 'src/app/services/auto-login';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -26,7 +28,7 @@ export class LoginPage implements OnInit {
   public user = null;
   public token = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
   }
@@ -50,6 +52,9 @@ export class LoginPage implements OnInit {
               this.token = data.token;
               localStorage.setItem('notsystem', data.token)
             }
+
+            let auto  = new AutoLogin(this.http, this.router);
+            auto.login();
             
             console.log(data);
           });

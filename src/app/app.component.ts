@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AutoLogin } from './services/auto-login';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +10,13 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor(private http: HttpClient, private router: Router) {
+    let auto  = new AutoLogin(this.http, this.router);
+    auto.login();
+  }
+
+  ngOnInit(){
+    
+  }
 }

@@ -50,13 +50,13 @@
 
       </form>
 
-      {{ errors.email }}
-      <br>
-      {{ errors.name }}
-      <br>
-      {{ errors.password }}
+      <div class="alert rounded mt-3" [class]="success ? 'alert-success' : 'alert-danger'" *ngIf="message != null">
+        <ion-text class="d-block small" *ngIf="message != null">{{message}}</ion-text>
+        <ion-text class="d-block small" *ngIf="errors.name != null"><li>{{errors.name}}</li></ion-text>
+        <ion-text class="d-block small" *ngIf="errors.email != null"><li>{{errors.email}}</li></ion-text>
+        <ion-text class="d-block small" *ngIf="errors.password != null"><li>{{errors.password}}</li></ion-text>
+      </div>
 
-      <ion-text class="d-block text-center alert rounded p-2 mt-3" [class]="success ? 'alert-success' : 'alert-danger'" *ngIf="message != null">{{message}}</ion-text>
 
       <div class="row mt-3 g-0">
         <div class="col"><ion-button fill="outline" expand="block" size="small" [routerLink]="['/auth/login']">Login</ion-button></div>

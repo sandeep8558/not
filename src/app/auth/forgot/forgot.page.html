@@ -1,9 +1,9 @@
 <ion-content>
   <div class="row h-100 align-items-center justify-content-center">
     <div class="col-10 col-sm-9 col-md-6 col-lg-4">
-      <h3 class="text-decoration-underline mb-4">LOGIN</h3>
+      <h3 class="text-decoration-underline mb-4">FORGOT PASSWORD</h3>
 
-      <form [formGroup]="forgotForm" (ngSubmit)="forgot()">
+      <form [formGroup]="otpState ? passwordResetForm : forgotForm" (ngSubmit)="forgot()">
         
         <ion-input
           type="email"
@@ -15,9 +15,47 @@
           formControlName="email"
         ></ion-input>
 
-        <ion-button fill="solid" expand="full" class="mt-3" type="submit" [disabled]="forgotForm.invalid">Login</ion-button>
+        <div *ngIf="otpState">
+          
+          <ion-input
+            type="text"
+            fill="clear"
+            label="OTP"
+            labelPlacement="floating"
+            helperText="Enter OTP received on email"
+            errorText="Invalid OTP"
+            formControlName="otp"
+          ></ion-input>
+
+          <ion-input
+            type="password"
+            fill="clear"
+            label="Password"
+            labelPlacement="floating"
+            helperText="Enter a valid password"
+            errorText="Invalid password"
+            formControlName="password"
+          ></ion-input>
+
+          <ion-input
+            type="password"
+            fill="clear"
+            label="Password"
+            labelPlacement="floating"
+            helperText="Enter a valid password"
+            errorText="Invalid password"
+            formControlName="password_confirmation"
+          ></ion-input>
+
+        </div>
+
+        <ion-button fill="solid" expand="full" class="mt-3" type="submit" [disabled]="forgotForm.invalid">{{otpState ? 'Reset Password' : 'Send OTP'}}</ion-button>
 
       </form>
+
+      <div class="alert rounded mt-3" [class]="success ? 'alert-success' : 'alert-danger'" *ngIf="message != null">
+        <ion-text class="d-block small" *ngIf="message != null">{{message}}</ion-text>
+      </div>
 
       <div class="row mt-3 g-0">
         <div class="col"><ion-button fill="outline" expand="block" size="small" [routerLink]="['/auth/login']">Login</ion-button></div>

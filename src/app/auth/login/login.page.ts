@@ -35,30 +35,31 @@ export class LoginPage implements OnInit {
 
   login(){
     if(this.loginForm.valid){
-          let path = environment.host + "/api/login"
-          let resp = this.http.post<any>(path,this.loginForm.value);
-          resp.subscribe(data => {
-            this.message = data.message;
-            this.success = data.success;
+      let path = environment.host + "/api/login"
+      let resp = this.http.post<any>(path,this.loginForm.value);
+      resp.subscribe(data => {
+        this.message = data.message;
+        this.success = data.success;
 
-            if(data.errors != null){
-              this.errors.email = data.errors.hasOwnProperty("email") ? data.errors["email"][0] : null;
-              this.errors.password = data.errors.hasOwnProperty("password") ? data.errors["password"][0] : null;
-            }
-    
-    
-            if(data.success){
-              this.user = data.user;
-              this.token = data.token;
-              localStorage.setItem('notsystem', data.token)
-            }
-
-            let auto  = new AutoLogin(this.http, this.router);
-            auto.login();
-            
-            console.log(data);
-          });
+        if(data.errors != null){
+          this.errors.email = data.errors.hasOwnProperty("email") ? data.errors["email"][0] : null;
+          this.errors.password = data.errors.hasOwnProperty("password") ? data.errors["password"][0] : null;
         }
+
+
+        if(data.success){
+          this.user = data.user;
+          this.token = data.token;
+          localStorage.setItem('notsystem', data.token);
+          localStorage.setItem('auth', '1');
+
+          this.router.navigateByUrl("/home");
+        }
+
+        let auto  = new AutoLogin(this.http, this.router);
+
+      });
+    }
   }
 
 }

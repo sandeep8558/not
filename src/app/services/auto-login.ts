@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { AutoLoginResponse } from './AutoLoginResponse';
-import { Global } from './global';
 import { Logout } from './logout';
 import { Router } from '@angular/router';
+import { UserModel } from './UserModel';
+import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +21,13 @@ export class AutoLogin {
     let headers = {
       Authorization: "Bearer " + token,
     };
-    let req = this.http.get<AutoLoginResponse>(path, {headers: headers});
-    req.subscribe(resp => {
-      let global = new Global();
-      global.isLogin.next(resp.success);
-      global.name.next(resp.name);
-      this.router.navigateByUrl("home");
-      console.log(resp);
+    let req = this.http.get<UserModel>(path, {headers: headers});
+    req.pipe(take(1)).subscribe(resp => {
+      let auth = resp.authenticated ? '1' : '0';
+      localStorage.setItem("auth", auth)
     }, error=>{
       let logout = new Logout(this.router)
       logout.logout();
-      console.log(error);
       this.router.navigateByUrl("auth/login");
     });
   }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonInput } from '@ionic/angular/standalone';
-import { Global } from '../services/global';
 import { Logout } from '../services/logout';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +13,12 @@ import { Router } from '@angular/router';
 export class HomePage {
 
   alertButtons = ['Action'];
+  title="";
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
+
+  ngOnInit(){
+  }
 
   logout(){
     let logout = new Logout(this.router)

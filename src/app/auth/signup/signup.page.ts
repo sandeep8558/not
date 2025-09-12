@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -28,7 +29,7 @@ export class SignupPage implements OnInit {
   public user = null;
   public token = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   ngOnInit() {
   }
@@ -51,9 +52,10 @@ export class SignupPage implements OnInit {
           this.user = data.user;
           this.token = data.token;
           localStorage.setItem('notsystem', data.token)
+          localStorage.setItem('auth', '1');
+          this.router.navigateByUrl("/home");
         }
-        
-        console.log(data);
+
       });
     }
   }

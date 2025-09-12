@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { reqInterceptor } from '../services/req-interceptor';
 
 
 @NgModule({
@@ -13,6 +15,11 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [
+    provideHttpClient(
+      withInterceptors([reqInterceptor])
+    ),
+  ]
 })
 export class HomePageModule {}

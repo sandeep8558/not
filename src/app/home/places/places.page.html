@@ -1,0 +1,131 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>PLACES</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="isPlacesFormOpen = true">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Add
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+
+  <!-- Place Form -->
+  <ion-list [inset]="true" *ngIf="isPlacesFormOpen">
+    <form [formGroup]="placeForm" (ngSubmit)="savePlace()" class="p-3">
+
+      <ion-input
+        type="text"
+        fill="clear"
+        label="Place Name"
+        labelPlacement="floating"
+        helperText="Enter a valid place name"
+        errorText="Invalid place name"
+        formControlName="place_name"
+      ></ion-input>
+
+      <ion-input
+        type="text"
+        fill="clear"
+        label="Address"
+        labelPlacement="floating"
+        helperText="Enter a valid address"
+        errorText="Invalid address"
+        formControlName="address"
+      ></ion-input>
+
+      <ion-input
+        type="text"
+        fill="clear"
+        label="SSID"
+        labelPlacement="floating"
+        helperText="Enter a valid SSID"
+        errorText="Invalid SSID"
+        formControlName="ssid"
+      ></ion-input>
+
+      <ion-input
+        type="password"
+        fill="clear"
+        label="Password"
+        labelPlacement="floating"
+        helperText="Enter a valid password"
+        errorText="Invalid password"
+        formControlName="pswd"
+      ></ion-input>
+
+      <ion-button fill="solid" expand="block" class="mt-3" type="submit" [disabled]="placeForm.invalid">{{placeForm.value["id"] ? 'Update Place' : 'Add Place'}}</ion-button>
+
+      <ion-button fill="clear" expand="block" color="danger" size="small" (click)="closeForm()">
+        <ion-label >Close Form</ion-label>
+      </ion-button>
+
+    </form>
+  </ion-list>
+  
+  <!-- List for Switches -->
+  <!-- <ion-list [inset]="true">
+    <ion-item [button]="true">
+      <ion-icon color="danger" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>General</ion-label>
+      <ion-note slot="end">6</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="tertiary" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Shopping</ion-label>
+      <ion-note slot="end">15</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="success" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Cleaning</ion-label>
+      <ion-note slot="end">3</ion-note>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-icon color="warning" slot="start" name="list-circle" size="large"></ion-icon>
+      <ion-label>Reminders</ion-label>
+      <ion-note slot="end">8</ion-note>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list [inset]="true">
+
+    <ion-item-sliding *ngFor="let place of places">
+
+      <ion-item [button]="true" detail="false">
+
+        <ion-label>
+          <strong><ion-icon name="home-outline"></ion-icon> {{place.place_name}}</strong><br>
+          <ion-text><ion-icon name="locate-outline"></ion-icon> {{place.address}}</ion-text><br />
+          <ion-note color="medium" class="ion-text-wrap">
+            <ion-icon name="wifi-outline"></ion-icon> {{place.ssid}} <br>
+            Rooms: 3 | Switches: 20
+          </ion-note>
+        </ion-label>
+
+        <div class="metadata-end-wrapper" slot="end">
+          <!-- <ion-note color="medium">06:11</ion-note> -->
+          <ion-icon color="medium" name="chevron-forward"></ion-icon>
+        </div>
+      </ion-item>
+
+      <ion-item-options slot="end">
+        <ion-item-option color="tertiary" (click)="editPlace(place)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" expandable="true" (click)="alertDeletePlace(place.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+    
+    
+
+  </ion-list>
+
+  
+</ion-content>

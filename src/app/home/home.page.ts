@@ -3,6 +3,7 @@ import { IonInput } from '@ionic/angular/standalone';
 import { Logout } from '../services/logout';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,6 @@ import { HttpClient } from '@angular/common/http';
   standalone: false,
 })
 export class HomePage {
-
-  alertButtons = ['Action'];
-  title="";
 
   constructor(private router: Router, private http: HttpClient) {}
 

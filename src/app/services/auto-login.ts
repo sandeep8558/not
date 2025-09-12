@@ -4,7 +4,7 @@ import { NgModel } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Logout } from './logout';
 import { Router } from '@angular/router';
-import { UserModel } from './UserModel';
+import { UserModel } from '../datamodel/UserModel';
 import { take } from 'rxjs';
 
 @Injectable({

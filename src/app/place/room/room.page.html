@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     
-    <ion-title *ngIf="place$ | async as place">{{place.place_name}} - Rooms</ion-title>
+    <ion-title *ngIf="place$ | async as place">{{place.place_name}}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="openForm()">
@@ -15,6 +15,7 @@
 
 <ion-content>
 
+  <!-- Room Form -->
   <ion-list *ngIf="isRoomFormOpen">
     <form [formGroup]="roomForm" (ngSubmit)="saveRoom()" class="p-3">
 
@@ -37,42 +38,66 @@
     </form>
   </ion-list>
 
+  <!-- Rooms Accordian -->
   <ion-accordion-group [multiple]="false">
     
     <ion-accordion *ngFor="let room of rooms" [value]="'room'+room.id">
 
       <ion-item slot="header" color="light">
-        <ion-input [value]="room.room_name" (change)="changeRoomName(room, $event)"></ion-input>
+        <ion-label *ngIf="!config">{{room.room_name}}</ion-label>
+        <ion-input *ngIf="config" [value]="room.room_name" (change)="changeRoomName(room, $event)"></ion-input>
       </ion-item>
 
-      <div class="ion-padding" slot="content">
+      <div class="ion-no-padding" slot="content">
         
         <ion-list [inset]="false">
-          <ion-item [button]="true">
-            <ion-label>General</ion-label>
-            <ion-note slot="end">6</ion-note>
+
+          <ion-item [button]="false" *ngFor="let app of room.appliances">
+            <!-- <div class="row" *ngIf="config">
+              <div class="col">{{app.appliance_name}}</div>
+              <div class="col-6">
+
+                <ion-buttons slot="end">
+                  <ion-button>
+                    <ion-icon name="create-outline"></ion-icon>
+                  </ion-button>
+                  <ion-button>
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </div>
+            </div> -->
+
+            <ion-label *ngIf="config">{{app.appliance_name}}</ion-label>
+            <ion-button *ngIf="config" slot="end" color="tertiary" (click)="editAppliance(app)"><ion-icon name="create-outline" ></ion-icon></ion-button>
+            <ion-button *ngIf="config" slot="end" color="danger" (click)="presentApplianceDeleteAlert(app)"><ion-icon name="trash-outline" ></ion-icon></ion-button>
+
+            <ion-toggle *ngIf="app.appliance_type == 'Switch' && !config" justify="space-between">{{app.appliance_name}}</ion-toggle>
+            <ion-range *ngIf="app.appliance_type == 'Dimmer' && !config" labelPlacement="start" min="0" max="100" value="50" label="{{app.appliance_name}}"></ion-range>
           </ion-item>
-          <ion-item [button]="true">
-            <ion-label>Shopping</ion-label>
-            <ion-note slot="end">15</ion-note>
-          </ion-item>
-          <ion-item [button]="true">
-            <ion-label>Cleaning</ion-label>
-            <ion-note slot="end">3</ion-note>
-          </ion-item>
-          <ion-item [button]="true">
-            <ion-label>Reminders</ion-label>
-            <ion-note slot="end">8</ion-note>
-          </ion-item>
+
         </ion-list>
 
-        <div class="row g-0 ion-padding-top">
-          <div class="col">
-            <ion-button expand="block" fill="outline" shape="round" color="secondary" size="small">
-              New
-            </ion-button>
+        <div class="row g-3 px-3" *ngIf="config">
+          <div class="col-12">
+            <form [formGroup]="applianceForm" (ngSubmit)="saveAppliance(room.id, room.place_id)">
+              <div class="row g-3 pt-3">
+                <div class="col-12">
+                  <ion-input formControlName="appliance_name" label="Appliance Name" type="text" label-placement="floating" fill="outline"></ion-input>
+                </div>
+                <div class="col-12">
+                  <ion-select formControlName="appliance_type" label="Switch Type" label-placement="floating" fill="outline">
+                    <ion-select-option value="Switch">Switch</ion-select-option>
+                    <ion-select-option value="Dimmer">Dimmer</ion-select-option>
+                  </ion-select>
+                </div>
+                <div class="col-12">
+                  <ion-button [disabled]="applianceForm.invalid" expand="full" type="submit">Save Appliance</ion-button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="col">
+          <div class="col-12">
             <ion-button expand="block" fill="outline" shape="round" color="danger" size="small" (click)="deleteRoomAlert(room.id)">
               Delete Room
             </ion-button>
@@ -84,5 +109,9 @@
     </ion-accordion>
 
   </ion-accordion-group>
+
+  <div class="container text-center py-3">
+    <ion-checkbox labelPlacement="end" (ionChange)="configure()" [checked]="config">Configure Rooms</ion-checkbox>
+  </div>
 
 </ion-content>

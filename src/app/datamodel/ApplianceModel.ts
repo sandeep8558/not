@@ -1,11 +1,12 @@
 export interface ApplianceModel {
-    user_id: BigInteger;
-    place_id: BigInteger;
-    room_id: BigInteger;
-    machine_id: BigInteger;
-    serial_no: BigInteger;
-    id: BigInteger;
+    user_id: string;
+    place_id: string;
+    room_id: string;
+    machine_id: string;
+    serial_no: string;
+    id: string;
     appliance_name: string;
+    appliance_type:string;
     appliance_logo: string;
     port: string;
 }

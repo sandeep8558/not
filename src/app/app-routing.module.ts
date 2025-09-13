@@ -11,6 +11,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'place',
+    loadChildren: () => import('./place/place.module').then( m => m.PlacePageModule),
+    canActivate: [authGuard],
+  },
+
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule),
     canActivate: [guestGuard]
@@ -21,6 +27,7 @@ const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full'
   },
+  
   
 ];
 

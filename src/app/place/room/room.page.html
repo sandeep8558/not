@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-title *ngIf="place$ | async as place">{{place.place_name}} - Rooms</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openForm()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Add
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="isRoomFormOpen">
+    <form [formGroup]="roomForm" (ngSubmit)="saveRoom()" class="p-3">
+
+      <ion-input
+        type="text"
+        fill="clear"
+        label="Room Name"
+        labelPlacement="floating"
+        helperText="Enter a valid room name"
+        errorText="Invalid room name"
+        formControlName="room_name"
+      ></ion-input>
+
+      <ion-button fill="solid" expand="block" class="mt-3" type="submit" [disabled]="roomForm.invalid">{{roomForm.value["id"] ? 'Update Room' : 'Add Room'}}</ion-button>
+
+      <ion-button fill="clear" expand="block" color="danger" size="small" (click)="closeForm()">
+        <ion-label >Close Form</ion-label>
+      </ion-button>
+
+    </form>
+  </ion-list>
+
+  <ion-accordion-group [multiple]="false">
+    
+    <ion-accordion *ngFor="let room of rooms" [value]="'room'+room.id">
+
+      <ion-item slot="header" color="light">
+        <ion-input [value]="room.room_name" (change)="changeRoomName(room, $event)"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding" slot="content">
+        
+        <ion-list [inset]="false">
+          <ion-item [button]="true">
+            <ion-label>General</ion-label>
+            <ion-note slot="end">6</ion-note>
+          </ion-item>
+          <ion-item [button]="true">
+            <ion-label>Shopping</ion-label>
+            <ion-note slot="end">15</ion-note>
+          </ion-item>
+          <ion-item [button]="true">
+            <ion-label>Cleaning</ion-label>
+            <ion-note slot="end">3</ion-note>
+          </ion-item>
+          <ion-item [button]="true">
+            <ion-label>Reminders</ion-label>
+            <ion-note slot="end">8</ion-note>
+          </ion-item>
+        </ion-list>
+
+        <div class="row g-0 ion-padding-top">
+          <div class="col">
+            <ion-button expand="block" fill="outline" shape="round" color="secondary" size="small">
+              New
+            </ion-button>
+          </div>
+          <div class="col">
+            <ion-button expand="block" fill="outline" shape="round" color="danger" size="small" (click)="deleteRoomAlert(room.id)">
+              Delete Room
+            </ion-button>
+          </div>
+        </div>
+
+      </div>
+
+    </ion-accordion>
+
+  </ion-accordion-group>
+
+</ion-content>

@@ -66,36 +66,12 @@
 
     </form>
   </ion-list>
-  
-  <!-- List for Switches -->
-  <!-- <ion-list [inset]="true">
-    <ion-item [button]="true">
-      <ion-icon color="danger" slot="start" name="list-circle" size="large"></ion-icon>
-      <ion-label>General</ion-label>
-      <ion-note slot="end">6</ion-note>
-    </ion-item>
-    <ion-item [button]="true">
-      <ion-icon color="tertiary" slot="start" name="list-circle" size="large"></ion-icon>
-      <ion-label>Shopping</ion-label>
-      <ion-note slot="end">15</ion-note>
-    </ion-item>
-    <ion-item [button]="true">
-      <ion-icon color="success" slot="start" name="list-circle" size="large"></ion-icon>
-      <ion-label>Cleaning</ion-label>
-      <ion-note slot="end">3</ion-note>
-    </ion-item>
-    <ion-item [button]="true">
-      <ion-icon color="warning" slot="start" name="list-circle" size="large"></ion-icon>
-      <ion-label>Reminders</ion-label>
-      <ion-note slot="end">8</ion-note>
-    </ion-item>
-  </ion-list> -->
 
   <ion-list [inset]="true">
 
     <ion-item-sliding *ngFor="let place of places">
 
-      <ion-item [button]="true" detail="false">
+      <ion-item [button]="true" detail="false" [routerLink]="'/place/'+place.id" (click)="changePlace(place)">
 
         <ion-label>
           <strong><ion-icon name="home-outline"></ion-icon> {{place.place_name}}</strong><br>

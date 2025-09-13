@@ -1,5 +1,5 @@
 export interface PlaceModel {
-    user_id: BigInteger;
+    user_id: string;
     id: string;
     place_name: string;
     address: string;

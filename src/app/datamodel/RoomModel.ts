@@ -1,6 +1,6 @@
 export interface RoomModel {
-    user_id: BigInteger;
-    place_id: BigInteger;
-    id: BigInteger;
+    user_id: string;
+    place_id: string;
+    id: string;
     room_name: string;
 }

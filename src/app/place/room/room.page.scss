@@ -1,0 +1,4 @@
+ion-list ion-item:last-child {
+  --border-width: 0; /* Removes the bottom border */
+  --inner-border-width: 0; /* Removes the inner border if applicable */
+}

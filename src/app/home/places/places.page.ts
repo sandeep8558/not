@@ -107,6 +107,9 @@ export class PlacesPage implements OnInit {
     this.placeForm.get("id")?.setValue(place.id);
   }
 
-  
+  changePlace(place:PlaceModel){
+    let p = JSON.stringify(place);
+    localStorage.setItem("place", p);
+  }
 
 }

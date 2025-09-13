@@ -1,9 +1,70 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My Place - Share</ion-title>
+    
+    <ion-title>Share</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openForm()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Add
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  Share
+
+  <div class="row justify-content-center">
+    <div class="col-11 py-3">
+
+        <div class="row g-3">
+          <div class="col-12">
+            <ion-input type="text" label="Email" fill="outline"></ion-input>
+          </div>
+
+          <div class="col-12" *ngIf="place$ | async as place">
+            <div class="row g-3">
+              <div class="col-12" *ngFor="let room of place.rooms">
+                <ion-checkbox labelPlacement="end" name="rooms">{{room.room_name}}</ion-checkbox>
+                <div class="row">
+                  <div class="col-12 ps-5" *ngFor="let appliance of room.appliances">
+                    <ion-checkbox labelPlacement="end">{{appliance.appliance_name}}</ion-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <ion-button expand="block">Share Place</ion-button>
+          </div>
+
+
+        </div>
+
+    </div>
+  </div>
+
+  <!-- List of people with place shared -->
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>First Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">First Content</div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Second Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Second Content</div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>Third Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Third Content</div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

@@ -1,3 +1,5 @@
+import { RoomModel } from "./RoomModel";
+
 export interface PlaceModel {
     user_id: string;
     id: string;
@@ -5,4 +7,5 @@ export interface PlaceModel {
     address: string;
     ssid: string;
     pswd: string;
+    rooms: RoomModel[];
 }

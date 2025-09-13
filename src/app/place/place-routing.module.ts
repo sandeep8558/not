@@ -13,11 +13,11 @@ const routes: Routes = [
         loadChildren: () => import('./room/room.module').then( m => m.RoomPageModule)
       },
       {
-        path: 'timer',
+        path: 'timer/:id',
         loadChildren: () => import('./timer/timer.module').then( m => m.TimerPageModule)
       },
       {
-        path: 'share',
+        path: 'share/:id',
         loadChildren: () => import('./share/share.module').then( m => m.SharePageModule)
       },
       {

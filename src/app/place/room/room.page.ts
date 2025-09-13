@@ -38,7 +38,8 @@ export class RoomPage implements OnInit {
     ssid: "",
     pswd: "",
     id: "",
-    user_id: ""
+    user_id: "",
+    rooms: [],
   });
 
   constructor(private http: HttpClient, private alertCtrl: AlertController) { }

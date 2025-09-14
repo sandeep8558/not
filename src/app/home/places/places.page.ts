@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { take } from 'rxjs';
 import { PlaceModel } from 'src/app/datamodel/PlaceModel';
@@ -25,7 +26,7 @@ export class PlacesPage implements OnInit {
     id: new FormControl(""),
   });
 
-  constructor(private http: HttpClient, private alertCtrl: AlertController) { }
+  constructor(private http: HttpClient, private alertCtrl: AlertController, private router: Router) { }
 
   ngOnInit() {
     this.getPlaces();
@@ -110,6 +111,7 @@ export class PlacesPage implements OnInit {
   changePlace(place:PlaceModel){
     let p = JSON.stringify(place);
     localStorage.setItem("place", p);
+    this.router.navigateByUrl("place/room");
   }
 
 }

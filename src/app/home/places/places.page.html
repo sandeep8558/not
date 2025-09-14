@@ -71,7 +71,7 @@
 
     <ion-item-sliding *ngFor="let place of places">
 
-      <ion-item [button]="true" detail="false" [routerLink]="'/place/'+place.id" (click)="changePlace(place)">
+      <ion-item [button]="true" detail="false" (click)="changePlace(place)">
 
         <ion-label>
           <strong><ion-icon name="home-outline"></ion-icon> {{place.place_name}}</strong><br>

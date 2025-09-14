@@ -9,15 +9,15 @@ const routes: Routes = [
     component: PlacePage,
     children: [
       {
-        path: 'room/:id',
+        path: 'room',
         loadChildren: () => import('./room/room.module').then( m => m.RoomPageModule)
       },
       {
-        path: 'timer/:id',
+        path: 'timer',
         loadChildren: () => import('./timer/timer.module').then( m => m.TimerPageModule)
       },
       {
-        path: 'share/:id',
+        path: 'share',
         loadChildren: () => import('./share/share.module').then( m => m.SharePageModule)
       },
       {

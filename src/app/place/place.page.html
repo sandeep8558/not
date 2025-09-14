@@ -1,24 +1,18 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>My Place</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-tabs>
+<ion-tabs #tabParent selectedIndex="rooms" *ngIf="place$ | async as place">
   <ion-tab-bar slot="bottom">
-    <ion-tab-button routerLink="/home/places">
+    <ion-tab-button name="home" routerLink="/home/places">
       <ion-icon name="home-outline"></ion-icon>
       Home
     </ion-tab-button>
-    <ion-tab-button tab="room">
+    <ion-tab-button name="rooms" tab="room">
       <ion-icon name="business-outline"></ion-icon>
       Rooms
     </ion-tab-button>
-    <ion-tab-button tab="timer">
+    <ion-tab-button name="timer" tab="timer">
       <ion-icon name="timer-outline"></ion-icon>
       Timer
     </ion-tab-button>
-    <ion-tab-button tab="share">
+    <ion-tab-button name="share" tab="share">
       <ion-icon name="share-social-outline"></ion-icon>
       Share
     </ion-tab-button>

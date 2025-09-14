@@ -29,6 +29,10 @@ export class PlacesPage implements OnInit {
   constructor(private http: HttpClient, private alertCtrl: AlertController, private router: Router) { }
 
   ngOnInit() {
+    
+  }
+
+  ionViewDidEnter(){
     this.getPlaces();
   }
 

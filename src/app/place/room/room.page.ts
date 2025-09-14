@@ -40,11 +40,15 @@ export class RoomPage implements OnInit {
     id: "",
     user_id: "",
     rooms: [],
+    share_places: [],
   });
 
   constructor(private http: HttpClient, private alertCtrl: AlertController) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
     this.loadPlace();
     this.getRooms();
   }

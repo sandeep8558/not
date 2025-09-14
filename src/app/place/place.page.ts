@@ -20,6 +20,7 @@ export class PlacePage implements OnInit {
       id: "",
       user_id: "",
       rooms: [],
+      share_places: [],
     });
 
   constructor() { }

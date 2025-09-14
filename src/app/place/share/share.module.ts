@@ -1,20 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { SharePageRoutingModule } from './share-routing.module';
 
 import { SharePage } from './share.page';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { reqInterceptor } from 'src/app/services/req-interceptor';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SharePageRoutingModule
+    SharePageRoutingModule,
+    ReactiveFormsModule,
   ],
-  declarations: [SharePage]
+  declarations: [SharePage],
+  providers: [
+    provideHttpClient(
+      withInterceptors([reqInterceptor])
+    ),
+  ]
 })
 export class SharePageModule {}

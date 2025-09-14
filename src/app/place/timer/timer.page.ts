@@ -18,11 +18,15 @@ export class TimerPage implements OnInit {
     id: "",
     user_id: "",
     rooms: [],
+    share_places: [],
   });
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
     this.loadPlace();
   }
 

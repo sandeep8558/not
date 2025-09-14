@@ -8,4 +8,5 @@ export interface PlaceModel {
     ssid: string;
     pswd: string;
     rooms: RoomModel[];
+    share_places: any[];
 }

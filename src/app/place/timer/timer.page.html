@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     
-    <ion-title>Timers</ion-title>
+    <ion-title *ngIf="place$ | async as place">{{place.place_name}} - Timers</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="openForm()">

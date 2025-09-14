@@ -5,4 +5,20 @@
 </ion-header>
 
 <ion-content>
+  <ion-content color="light">
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-label>All settings goes here!</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Delete this Account</ion-label>
+        <ion-button color="danger">Delete</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Logout from this app.</ion-label>
+        <ion-button (click)="logoutNow()">Logout</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-content>

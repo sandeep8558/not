@@ -1,12 +1,16 @@
 <ion-header>
   <ion-toolbar>
     
-    <ion-title>Share</ion-title>
+    <ion-title *ngIf="place$ | async as place">{{place.place_name}} - Share</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="openForm()">
+      <ion-button (click)="openForm()" *ngIf="!isFormOpen">
         <ion-icon slot="start" name="add-outline"></ion-icon>
         Add
+      </ion-button>
+      <ion-button (click)="closeForm()" *ngIf="isFormOpen">
+        <ion-icon slot="start" name="close-outline"></ion-icon>
+        Close
       </ion-button>
     </ion-buttons>
 
@@ -15,56 +19,72 @@
 
 <ion-content>
 
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" *ngIf="isFormOpen">
     <div class="col-11 py-3">
 
         <div class="row g-3">
           <div class="col-12">
-            <ion-input type="text" label="Email" fill="outline"></ion-input>
+            <ion-input type="text" label="Email" fill="outline" [(ngModel)]="email"></ion-input>
           </div>
 
-          <div class="col-12" *ngIf="place$ | async as place">
-            <div class="row g-3">
-              <div class="col-12" *ngFor="let room of place.rooms">
-                <ion-checkbox labelPlacement="end" name="rooms">{{room.room_name}}</ion-checkbox>
-                <div class="row">
-                  <div class="col-12 ps-5" *ngFor="let appliance of room.appliances">
-                    <ion-checkbox labelPlacement="end">{{appliance.appliance_name}}</ion-checkbox>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- <div class="col-12" *ngIf="place$ | async as place">
+            <ion-item-group *ngFor="let room of place.rooms">
+              <ion-item-divider >
+                <ion-label>{{room.room_name}}</ion-label>
+              </ion-item-divider>
+
+              <ion-item *ngFor="let appliance of room.appliances; let isLast = last" [lines]="isLast ? 'none' : ''">
+                <ion-toggle (ionChange)="addRemoveAppliance(appliance.id, $event)" justify="space-between" color="success">{{appliance.appliance_name}}</ion-toggle>
+              </ion-item>
+            </ion-item-group>
+          </div> -->
 
           <div class="col-12">
-            <ion-button expand="block">Share Place</ion-button>
+            <ion-button (click)="sharePlace()" expand="block">Share Place</ion-button>
           </div>
 
+          
 
         </div>
 
     </div>
   </div>
 
+  <div class="row p-3" *ngIf="formMessage">
+    <div class="col-12">
+      <div class="alert" [class]="success ? 'alert-success' : 'alert-danger'">
+        {{formMessage}}
+      </div>
+    </div>
+  </div>
+
   <!-- List of people with place shared -->
   <ion-accordion-group>
-    <ion-accordion value="first">
+    
+    <ion-accordion [value]="'share'+sh.id" *ngFor="let sh of shared">
       <ion-item slot="header" color="light">
-        <ion-label>First Accordion</ion-label>
+        <ion-label>{{sh.name}}</ion-label>
       </ion-item>
-      <div class="ion-padding" slot="content">First Content</div>
+      <div class="ion-padding" slot="content">
+
+        <div class="col-12" *ngIf="place$ | async as place">
+          <ion-item-group *ngFor="let room of place.rooms">
+            <ion-item-divider >
+              <ion-label>{{room.room_name}}</ion-label>
+            </ion-item-divider>
+
+            <ion-item *ngFor="let appliance of room.appliances; let isLast = last" [lines]="isLast ? 'none' : ''">
+              <ion-toggle [checked]="sh.appliance_ids.includes(appliance.id)" (ionChange)="updateShare(sh.user_id, place.id, sh.id, room.id, appliance.id, $event)" justify="space-between" color="success">
+                {{appliance.appliance_name}} {{appliance.id}}
+              </ion-toggle>
+            </ion-item>
+          </ion-item-group>
+        </div>
+
+        <ion-button color="danger" expand="block" fill="outline" (click)="presentRevoke(sh)">Revoke Access</ion-button>
+
+      </div>
     </ion-accordion>
-    <ion-accordion value="second">
-      <ion-item slot="header" color="light">
-        <ion-label>Second Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">Second Content</div>
-    </ion-accordion>
-    <ion-accordion value="third">
-      <ion-item slot="header" color="light">
-        <ion-label>Third Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">Third Content</div>
-    </ion-accordion>
+
   </ion-accordion-group>
 </ion-content>

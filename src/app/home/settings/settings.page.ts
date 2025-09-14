@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Logout } from 'src/app/services/logout';
 
 @Component({
   selector: 'app-settings',
@@ -8,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(private logout: Logout) { }
 
   ngOnInit() {
+  }
+
+  logoutNow(){
+    this.logout.logout();
   }
 
 }

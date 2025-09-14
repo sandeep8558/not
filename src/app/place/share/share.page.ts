@@ -143,7 +143,7 @@ export class SharePage implements OnInit {
           role: 'cancel',
         },
         {
-          text: 'Delete',
+          text: 'Revoke',
           handler: () => {
             this.revokeAccess(sharePlace);
           }
